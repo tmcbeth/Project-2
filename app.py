@@ -18,7 +18,7 @@ app = Flask(__name__)
 # Database Setup
 #################################################
 
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///db/livestock.sqlite"
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///db/combined_database.sqlite"
 db = SQLAlchemy(app)
 
 class livestock(db.Model):

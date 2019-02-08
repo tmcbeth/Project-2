@@ -1,15 +1,22 @@
-// Plot the default route once the page loads
+// Bar Chart of inventory by livestock
+// CHART REMOVED FROM HTML
 
-var defaultURL = "/animal_totals";
-d3.json(defaultURL).then(function(data) {
-  var data = [{
-    x: data.animal,
-    y: data.Total,
-    type: 'bar'
-  }];
-  var layout = { margin: { t: 30, b: 100 } };
-  Plotly.plot("bar", data, layout);
-});
+// var defaultURL = "/animal_totals";
+// d3.json(defaultURL).then(function(data) {
+//   var data = [{
+//     x: data.animal,
+//     y: data.Total,
+//     type: 'bar'
+//   }];
+//   var layout = { margin: { t: 30, b: 100 } };
+//   Plotly.plot("bar", data, layout);
+// });
+
+
+
+
+
+
 
 // // Update the plot with new data
 // function updatePlotly(newdata) {
@@ -25,6 +32,7 @@ d3.json(defaultURL).then(function(data) {
 //     updatePlotly(data);
 //   });
 // }
+
 
 function buildCharts(commodity) {
 
