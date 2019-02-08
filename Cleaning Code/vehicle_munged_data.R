@@ -8,6 +8,8 @@ library(plyr)
 library(RSQLite)
 library(dplyr)
 library(sqldf)
+library(readr)
+library(jsonlite)
 
 # Read the CSV file into RStudio 
 raw_vehicle_registration <- read.csv(file="state_motor_vehicles_registrations_2012.csv", header=TRUE, na.strings="—")
@@ -33,6 +35,13 @@ vehicle_data
 
 # Write cleaned data to a new CSV file
 write.csv(vehicle_data, file = "cleaned_vehicle_data.csv", row.names = FALSE)
+
+# Write the cleaned data to a JSON file using JSONLITE
+vehicle_json <- toJSON(vehicle_data, dataframe = c("rows"), 
+       digits = NA, matrix = c("rowmajor"), pretty = TRUE)
+cat(vehicle_json)
+
+write(vehicle_json, "Vehicle_Data.json")
 
 # Create the SQLite Database
 # Establish connection to database using RSQLite 

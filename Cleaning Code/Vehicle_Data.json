@@ -1,0 +1,402 @@
+[
+  {
+    "State": "Alabama",
+    "Automobiles": "2,042,489",
+    "Buses": "5,699",
+    "Trucks": "2,663,979",
+    "Motorcycles": "132,465",
+    "Total_Vehicles": "4,844,632"
+  },
+  {
+    "State": "Alaska",
+    "Automobiles": "193,151",
+    "Buses": "3,487",
+    "Trucks": "546,667",
+    "Motorcycles": "31,940",
+    "Total_Vehicles": "775,245"
+  },
+  {
+    "State": "Arizona",
+    "Automobiles": "2,124,041",
+    "Buses": "20,850",
+    "Trucks": "2,869,368",
+    "Motorcycles": "148,756",
+    "Total_Vehicles": "5,163,015"
+  },
+  {
+    "State": "Arkansas ",
+    "Automobiles": "881,272",
+    "Buses": "10,535",
+    "Trucks": "1,512,023",
+    "Motorcycles": "76,085",
+    "Total_Vehicles": "2,479,915"
+  },
+  {
+    "State": "California ",
+    "Automobiles": "13,223,822",
+    "Buses": "93,305",
+    "Trucks": "13,597,502",
+    "Motorcycles": "787,521",
+    "Total_Vehicles": "27,702,150"
+  },
+  {
+    "State": "Colorado ",
+    "Automobiles": "1,746,188",
+    "Buses": "11,759",
+    "Trucks": "2,620,068",
+    "Motorcycles": "183,881",
+    "Total_Vehicles": "4,561,896"
+  },
+  {
+    "State": "Connecticut",
+    "Automobiles": "1,387,079",
+    "Buses": "12,085",
+    "Trucks": "1,223,963",
+    "Motorcycles": "83,332",
+    "Total_Vehicles": "2,706,459"
+  },
+  {
+    "State": "Delaware",
+    "Automobiles": "442,113",
+    "Buses": "4,465",
+    "Trucks": "466,334",
+    "Motorcycles": "30,730",
+    "Total_Vehicles": "943,642"
+  },
+  {
+    "State": "Florida ",
+    "Automobiles": "7,535,856",
+    "Buses": "31,234",
+    "Trucks": "7,479,744",
+    "Motorcycles": "619,152",
+    "Total_Vehicles": "15,665,986"
+  },
+  {
+    "State": "Georgia ",
+    "Automobiles": "3,321,507",
+    "Buses": "41,790",
+    "Trucks": "4,082,491",
+    "Motorcycles": "201,207",
+    "Total_Vehicles": "7,646,995"
+  },
+  {
+    "State": "Hawaii",
+    "Automobiles": "521,804",
+    "Buses": "2,566",
+    "Trucks": "671,845",
+    "Motorcycles": "35,527",
+    "Total_Vehicles": "1,231,742"
+  },
+  {
+    "State": "Idaho",
+    "Automobiles": "577,382",
+    "Buses": "2,480",
+    "Trucks": "1,000,402",
+    "Motorcycles": "63,964",
+    "Total_Vehicles": "1,644,228"
+  },
+  {
+    "State": "Illinois ",
+    "Automobiles": "4,717,657",
+    "Buses": "30,344",
+    "Trucks": "5,019,227",
+    "Motorcycles": "364,655",
+    "Total_Vehicles": "10,131,883"
+  },
+  {
+    "State": "Indiana",
+    "Automobiles": "2,439,141",
+    "Buses": "8,754",
+    "Trucks": "3,333,368",
+    "Motorcycles": "223,103",
+    "Total_Vehicles": "6,004,366"
+  },
+  {
+    "State": "Iowa ",
+    "Automobiles": "1,343,336",
+    "Buses": "9,255",
+    "Trucks": "1,978,396",
+    "Motorcycles": "180,063",
+    "Total_Vehicles": "3,511,050"
+  },
+  {
+    "State": "Kansas",
+    "Automobiles": "959,718",
+    "Buses": "4,720",
+    "Trucks": "1,403,214",
+    "Motorcycles": "81,578",
+    "Total_Vehicles": "2,449,230"
+  },
+  {
+    "State": "Kentucky ",
+    "Automobiles": "1,533,919",
+    "Buses": "9,699",
+    "Trucks": "2,026,442",
+    "Motorcycles": "100,506",
+    "Total_Vehicles": "3,670,566"
+  },
+  {
+    "State": "Louisiana ",
+    "Automobiles": "1,499,813",
+    "Buses": "12,517",
+    "Trucks": "2,308,789",
+    "Motorcycles": "68,297",
+    "Total_Vehicles": "3,889,416"
+  },
+  {
+    "State": "Maine ",
+    "Automobiles": "474,622",
+    "Buses": "1,433",
+    "Trucks": "650,769",
+    "Motorcycles": "53,268",
+    "Total_Vehicles": "1,180,092"
+  },
+  {
+    "State": "Maryland",
+    "Automobiles": "1,968,035",
+    "Buses": "15,687",
+    "Trucks": "1,877,706",
+    "Motorcycles": "121,306",
+    "Total_Vehicles": "3,982,734"
+  },
+  {
+    "State": "Massachusetts ",
+    "Automobiles": "2,481,482",
+    "Buses": "11,240",
+    "Trucks": "2,333,016",
+    "Motorcycles": "124,121",
+    "Total_Vehicles": "4,949,859"
+  },
+  {
+    "State": "Michigan",
+    "Automobiles": "3,408,669",
+    "Buses": "8,711",
+    "Trucks": "4,114,563",
+    "Motorcycles": "266,489",
+    "Total_Vehicles": "7,798,432"
+  },
+  {
+    "State": "Minnesota ",
+    "Automobiles": "2,148,272",
+    "Buses": "12,657",
+    "Trucks": "2,696,310",
+    "Motorcycles": "241,768",
+    "Total_Vehicles": "5,099,007"
+  },
+  {
+    "State": "Mississippi ",
+    "Automobiles": "847,669",
+    "Buses": "7,887",
+    "Trucks": "1,168,320",
+    "Motorcycles": "28,264",
+    "Total_Vehicles": "2,052,140"
+  },
+  {
+    "State": "Missouri",
+    "Automobiles": "2,398,353",
+    "Buses": "6,276",
+    "Trucks": "3,104,166",
+    "Motorcycles": "175,887",
+    "Total_Vehicles": "5,684,682"
+  },
+  {
+    "State": "Montana ",
+    "Automobiles": "433,264",
+    "Buses": "3,725",
+    "Trucks": "892,746",
+    "Motorcycles": "158,873",
+    "Total_Vehicles": "1,488,608"
+  },
+  {
+    "State": "Nebraska",
+    "Automobiles": "732,238",
+    "Buses": "3,872",
+    "Trucks": "1,099,515",
+    "Motorcycles": "52,853",
+    "Total_Vehicles": "1,888,478"
+  },
+  {
+    "State": "Nevada ",
+    "Automobiles": "932,805",
+    "Buses": "3,863",
+    "Trucks": "1,124,022",
+    "Motorcycles": "69,641",
+    "Total_Vehicles": "2,130,331"
+  },
+  {
+    "State": "New Hampshire ",
+    "Automobiles": "560,416",
+    "Buses": "3,356",
+    "Trucks": "658,792",
+    "Motorcycles": "79,877",
+    "Total_Vehicles": "1,302,441"
+  },
+  {
+    "State": "New Jersey ",
+    "Automobiles": "3,971,265",
+    "Buses": "19,606",
+    "Trucks": "3,588,133",
+    "Motorcycles": "332,470",
+    "Total_Vehicles": "7,911,474"
+  },
+  {
+    "State": "New Mexico",
+    "Automobiles": "675,737",
+    "Buses": "5,411",
+    "Trucks": "1,057,976",
+    "Motorcycles": "66,666",
+    "Total_Vehicles": "1,805,790"
+  },
+  {
+    "State": "New York ",
+    "Automobiles": "5,076,204",
+    "Buses": "25,684",
+    "Trucks": "5,001,443",
+    "Motorcycles": "345,412",
+    "Total_Vehicles": "10,448,743"
+  },
+  {
+    "State": "North Carolina ",
+    "Automobiles": "3,445,365",
+    "Buses": "38,164",
+    "Trucks": "4,109,822",
+    "Motorcycles": "199,205",
+    "Total_Vehicles": "7,792,555"
+  },
+  {
+    "State": "North Dakota",
+    "Automobiles": "249,181",
+    "Buses": "2,535",
+    "Trucks": "524,628",
+    "Motorcycles": "34,011",
+    "Total_Vehicles": "810,355"
+  },
+  {
+    "State": "Ohio",
+    "Automobiles": "4,738,058",
+    "Buses": "18,185",
+    "Trucks": "5,020,317",
+    "Motorcycles": "339,688",
+    "Total_Vehicles": "10,116,248"
+  },
+  {
+    "State": "Oklahoma ",
+    "Automobiles": "1,361,339",
+    "Buses": "1,946",
+    "Trucks": "1,948,971",
+    "Motorcycles": "127,681",
+    "Total_Vehicles": "3,439,937"
+  },
+  {
+    "State": "Oregon",
+    "Automobiles": "1,455,989",
+    "Buses": "3,178",
+    "Trucks": "1,981,947",
+    "Motorcycles": "86,123",
+    "Total_Vehicles": "3,527,237"
+  },
+  {
+    "State": "Pennsylvania",
+    "Automobiles": "4,774,517",
+    "Buses": "36,979",
+    "Trucks": "5,240,635",
+    "Motorcycles": "419,282",
+    "Total_Vehicles": "10,471,413"
+  },
+  {
+    "State": "Rhode Island ",
+    "Automobiles": "456,426",
+    "Buses": "2,182",
+    "Trucks": "362,673",
+    "Motorcycles": "33,078",
+    "Total_Vehicles": "854,359"
+  },
+  {
+    "State": "South Carolina",
+    "Automobiles": "1,712,854",
+    "Buses": "17,084",
+    "Trucks": "2,054,655",
+    "Motorcycles": "112,239",
+    "Total_Vehicles": "3,896,832"
+  },
+  {
+    "State": "South Dakota ",
+    "Automobiles": "331,662",
+    "Buses": "2,280",
+    "Trucks": "596,277",
+    "Motorcycles": "73,352",
+    "Total_Vehicles": "1,003,571"
+  },
+  {
+    "State": "Tennessee ",
+    "Automobiles": "2,232,584",
+    "Buses": "12,028",
+    "Trucks": "2,980,483",
+    "Motorcycles": "167,566",
+    "Total_Vehicles": "5,392,661"
+  },
+  {
+    "State": "Texas ",
+    "Automobiles": "7,821,859",
+    "Buses": "97,685",
+    "Trucks": "11,870,179",
+    "Motorcycles": "448,399",
+    "Total_Vehicles": "20,238,122"
+  },
+  {
+    "State": "Utah",
+    "Automobiles": "832,197",
+    "Buses": "6,653",
+    "Trucks": "1,079,672",
+    "Motorcycles": "62,819",
+    "Total_Vehicles": "1,981,341"
+  },
+  {
+    "State": "Vermont",
+    "Automobiles": "251,437",
+    "Buses": "2,088",
+    "Trucks": "322,725",
+    "Motorcycles": "30,691",
+    "Total_Vehicles": "606,941"
+  },
+  {
+    "State": "Virginia",
+    "Automobiles": "3,305,911",
+    "Buses": "31,217",
+    "Trucks": "3,580,174",
+    "Motorcycles": "199,489",
+    "Total_Vehicles": "7,116,791"
+  },
+  {
+    "State": "Washington ",
+    "Automobiles": "2,542,747",
+    "Buses": "20,308",
+    "Trucks": "3,069,589",
+    "Motorcycles": "217,301",
+    "Total_Vehicles": "5,849,945"
+  },
+  {
+    "State": "West Virginia",
+    "Automobiles": "537,131",
+    "Buses": "4,472",
+    "Trucks": "56,541",
+    "Motorcycles": "1,413,776",
+    "Total_Vehicles": "13,921"
+  },
+  {
+    "State": "Wisconsin ",
+    "Automobiles": "2,221,497",
+    "Buses": "15,311",
+    "Trucks": "280,954",
+    "Motorcycles": "5,128,854",
+    "Total_Vehicles": "58,959"
+  },
+  {
+    "State": "Wyoming ",
+    "Automobiles": "212,789",
+    "Buses": "2,960",
+    "Trucks": "31,316",
+    "Motorcycles": "787,056",
+    "Total_Vehicles": "7,263"
+  }
+]
