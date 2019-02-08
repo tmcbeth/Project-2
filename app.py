@@ -21,8 +21,11 @@ app = Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///db/combined_database.sqlite"
 db = SQLAlchemy(app)
 
-class livestock(db.Model):
-    __tablename__ = 'livestock'
+
+# livestock table 
+
+class Livestock_Table(db.Model):
+    __tablename__ = 'Livestock_Table'
 
     Program = db.Column(db.String, primary_key=True)
     Year = db.Column(db.Integer)
@@ -45,7 +48,50 @@ class livestock(db.Model):
     CV = db.Column(db.Integer)
 
     def __repr__(self):
-        return '<livestock %r>' % (self.name)
+        return '<Livestock_Table %r>' % (self.name)
+
+# CO2 table 
+
+class CO2_Table(db.Model):
+    __tablename__ = 'CO2_Table'
+
+    index = db.Column(db.Integer, primary_key=True)
+    State = db.Column(db.String)
+    CO2_Emissions_1996 = db.Column(db.Integer)
+    CO2_Emissions_2016 = db.Column(db.Integer)
+
+    def __repr__(self):
+        return '<CO2 %r>' % (self.name)
+
+# State Emission table 
+
+class State_Emission_Table(db.Model):
+    __tablename__ = 'State_Emission_Table'
+
+    State = db.Column(db.String, primary_key=True)
+    Tons_Greenhouse_Gas = db.Column(db.Integer)
+    Methane_Emission = db.Column(db.Integer)
+    CO2_Emission = db.Column(db.Integer)
+    State_Biomass_Generation = db.Column(db.Integer)
+
+    def __repr__(self):
+        return '<State_Emission_Table %r>' % (self.name)
+
+# vehicle table 
+
+class Vehicle_Table(db.Model):
+    __tablename__ = 'Vehicle_Table'
+
+    State = db.Column(db.String, primary_key=True)
+    Automobiles = db.Column(db.Integer)
+    Buses = db.Column(db.Integer)
+    Trucks = db.Column(db.Integer)
+    Motorcycles = db.Column(db.Integer)
+    Total_Vehicles = db.Column(db.Integer)
+
+    def __repr__(self):
+        return '<Vehicle_Table %r>' % (self.name)
+
 
 # Create database tables
 @app.before_first_request
@@ -83,7 +129,7 @@ def names():
     """Return a list of sample names."""
 
     # Use Pandas to perform the sql query
-    results = db.session.query(livestock.Commodity).group_by(livestock.Commodity).all()
+    results = db.session.query(Livestock_Table.Commodity).group_by(Livestock_Table.Commodity).all()
 
     # Return a list of the column names (sample names)
 
@@ -94,8 +140,8 @@ def names():
 @app.route("/livestock")
 def livestock_data():
     """Return all livestock data"""
-    results = db.session.query(livestock.State, livestock.Commodity, livestock.DataItem, livestock.Value).\
-        order_by(livestock.State).all()
+    results = db.session.query(Livestock_Table.State, Livestock_Table.Commodity, Livestock_Table.DataItem, Livestock_Table.Value).\
+        order_by(Livestock_Table.State).all()
 
     state = [result[0] for result in results]
     commodity = [result[1] for result in results]
@@ -113,10 +159,11 @@ def livestock_data():
 
 @app.route("/animal_totals")
 def animal_totals():
-    """Return all livestock data"""
 
-    results = db.session.query(livestock.Commodity, func.sum(livestock.Value)).\
-        group_by(livestock.Commodity).all()
+    """ Total of all Animals in all States"""
+
+    results = db.session.query(Livestock_Table.Commodity, func.sum(Livestock_Table.Value)).\
+        group_by(Livestock_Table.Commodity).all()
 
     commodity = [result[0] for result in results]
     total = [result[1] for result in results]
@@ -131,10 +178,11 @@ def animal_totals():
 
 @app.route("/by_state/<commodity>")
 def state_totals(commodity):
-    """Return all livestock data"""
+  
+    """ Select livestock inventory by state """
 
-    results = db.session.query(livestock.State, livestock.Value).\
-        filter(livestock.Commodity == func.upper(commodity)).all()
+    results = db.session.query(Livestock_Table.State, Livestock_Table.Value).\
+        filter(Livestock_Table.Commodity == func.upper(commodity)).all()
 
     state = [result[0] for result in results]
     total = [result[1] for result in results]
@@ -150,10 +198,11 @@ def state_totals(commodity):
 
 @app.route("/by_state_map/<commodity>")
 def state_totals_map(commodity):
-    """Return all livestock data"""
+ 
+    """ Supports Data structure for Map """
 
-    results = db.session.query(livestock.State, livestock.Value).\
-        filter(livestock.Commodity == func.upper(commodity)).all()
+    results = db.session.query(Livestock_Table.State, Livestock_Table.Value).\
+        filter(Livestock_Table.Commodity == func.upper(commodity)).all()
 
     state = [result[0] for result in results]
     total = [result[1] for result in results]
@@ -167,7 +216,78 @@ def state_totals_map(commodity):
         }
     }
 
-    return jsonify(results)
+    return jsonify(trace)
+
+
+@app.route("/co2")
+def co2():
+
+    """Return all CO2 data"""
+
+    results = db.session.query(CO2_Table.State, CO2_Table.CO2_Emissions_1996, CO2_Table.CO2_Emissions_2016).all()
+
+    state = [result[0] for result in results]
+    CO2_1996 = [result[1] for result in results]
+    CO2_2016 = [result[2]for result in results]
+
+
+    trace = {
+        "state": state,
+        "CO2_1996": CO2_1996,
+        "CO2_2016": CO2_2016
+        }
+
+    return jsonify(trace)
+
+
+# @app.route("/state_emission")
+# def state_emission():
+
+#     """Return all state emission data"""
+
+#     results = db.session.query(State_Emission_Table.State, State_Emission_Table.Tons_Greenhouse_Gas, State_Emission_Table.Methane_Emission, State_Emission_Table.CO2_Emission, State_Emission_Table.State_Biomass_Generation).all()
+
+#     state = [result[0] for result in results]
+#     Tons_Greenhouse_Gas = [result[1] for result in results]
+#     Methane_Emission = [result[2] for result in results]
+#     CO2_Emission = [result[3] for result in results]
+#     State_Biomass_Generation = [result[4] for result in results]
+
+
+#     trace = {
+#         "state": state,
+#         "Tons_Greenhouse_Gas": Tons_Greenhouse_Gas,
+#         "Methane_Emission": Methane_Emission,
+#         "CO2_Emission": CO2_Emission,
+#         "State_Biomass_Generation": State_Biomass_Generation
+#         }
+
+#     return jsonify(trace)
+
+@app.route("/vehicle")
+def vehicle():
+
+    """Return all vehicle data"""
+
+    results = db.session.query(Vehicle_Table.State,Vehicle_Table.Automobiles,Vehicle_Table.Buses,Vehicle_Table.Trucks,Vehicle_Table.Motorcycles,Vehicle_Table.Total_Vehicles).all()
+
+    state = [result[0] for result in results]
+    Automobiles = [result[1] for result in results]
+    Buses = [result[2] for result in results]
+    Trucks = [result[3] for result in results]
+    Motorcycles = [result[4] for result in results]
+    Total_Vehicles = [result[4] for result in results]
+    
+    trace = {
+        "state": state,
+        "Automobiles": Automobiles,
+        "Buses": Buses,
+        "Trucks": Trucks,
+        "Motorcycles": Motorcycles,
+        "Total_Vehicles": Total_Vehicles
+        }
+
+    return jsonify(trace)
 
 
 if __name__ == "__main__":
