@@ -148,5 +148,27 @@ def state_totals(commodity):
     return jsonify(trace)
 
 
+@app.route("/by_state_map/<commodity>")
+def state_totals_map(commodity):
+    """Return all livestock data"""
+
+    results = db.session.query(livestock.State, livestock.Value).\
+        filter(livestock.Commodity == func.upper(commodity)).all()
+
+    state = [result[0] for result in results]
+    total = [result[1] for result in results]
+
+
+    trace = {
+        "type": "feature",
+        "properties": {
+            "name": [result[0] for result in results],
+            "total": [result[1] for result in results]
+        }
+    }
+
+    return jsonify(results)
+
+
 if __name__ == "__main__":
     app.run()
