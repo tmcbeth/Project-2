@@ -26,9 +26,8 @@ keep_columns <- rename(keep_columns, replace = c("ï..STATE" = "State", "TOTAL_A
                        "MOTORCYCLES_TOTAL"="Motorcycles", 
                         "ALL_MOTOR_VEHICLES_TOTAL"="Total_Vehicles"))
                        
-# Delete the redundant "Total" row 52 and District of Columbia row 9
-remove_total <- keep_columns[-c(52),] 
-vehicle_data <- remove_total[-c(9),] 
+# Delete the redundant "Total" row 52 
+vehicle_data <- keep_columns[-c(52),] 
 
 # Check current data frame
 vehicle_data

@@ -18,13 +18,14 @@ livestock_conn <- dbConnect(RSQLite::SQLite(), dbname = "livestock.sqlite")
 dbListTables(livestock_conn)
 dbReadTable(livestock_conn, "livestock")
 
-# CO2 Emissions Database
+# Fix the CO2 Emissions Database
+# Connect to the SQLite Database using RSQLite 
 CO2_conn <- dbConnect(RSQLite::SQLite(), dbname = "CO2_Emissions.sqlite") 
 dbListTables(CO2_conn)
 dbReadTable(CO2_conn, "CO2_Emissions")
 
 # State Greenhouse Gases Emissions
-emissions_conn <- dbConnect(RSQLite::SQLite(), dbname = "state_emission.sqlite") 
+emissions_conn <- dbConnect(RSQLite::SQLite(), dbname = "state_emission-fixed.sqlite") 
 dbListTables(emissions_conn)
 dbReadTable(emissions_conn, "state_emission")
 
@@ -41,13 +42,23 @@ CO2_Table
 State_Emission_Table
 
 # Use dplyr package to create a new SQLite Database in the working directory
-my_database <- src_sqlite("combined_database.sqlite", create = TRUE) 
+my_database <- dbConnect(RSQLite::SQLite(), dbname = "combined_database.sqlite")
+dbListTables(my_database)
+
+# Remove old tables 
+# dbRemoveTable(my_database, "Vehicle_Table")   
+# dbRemoveTable(my_database, "Livestock_Table") 
+# dbRemoveTable(my_database, "CO2_Table")   
+# dbRemoveTable(my_database, "State_Emission_Table") 
 
 # Use the copy_to function from dplyr to upload data 
-copy_to(my_database, Vehicle_Table, temporary = FALSE) 
-copy_to(my_database, Livestock_Table, temporary = FALSE) 
-copy_to(my_database, CO2_Table, temporary = FALSE) 
-copy_to(my_database, State_Emission_Table, temporary = FALSE) 
+copy_to(my_database, Vehicle_Table, temporary = FALSE, append=TRUE) 
+copy_to(my_database, Livestock_Table, temporary = FALSE, append=TRUE) 
+copy_to(my_database, CO2_Table, temporary = FALSE, append=TRUE) 
+copy_to(my_database, State_Emission_Table, temporary = FALSE, append=TRUE) 
+
+# Check to see the tables were added
+dbListTables(my_database)
 
 # Connect to the newly created database 
 please_work <- dbConnect(RSQLite::SQLite(), dbname = "combined_database.sqlite")
@@ -63,7 +74,7 @@ dbRemoveTable(please_work, "sqlite_stat4")
 dbListTables(please_work)
 
 # Disconnect from all databases and celebrate because that took a lot of effort
-dbDisconnect(vehicle_conn) 
+dbDisconnect(vehicle_conn)
 dbDisconnect(emissions_conn)
 dbDisconnect(livestock_conn)
 dbDisconnect(CO2_conn)
