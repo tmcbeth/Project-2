@@ -2,13 +2,14 @@ import os
 
 import pandas as pd
 import numpy as np
+import json
 
 import sqlalchemy
 from sqlalchemy.ext.automap import automap_base
 from sqlalchemy.orm import Session
 from sqlalchemy import create_engine, Column, Integer, ForeignKey, Numeric, DateTime, func
 
-from flask import Flask, jsonify, render_template, request, redirect
+from flask import Flask, jsonify, render_template, request, redirect, url_for, json
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
@@ -69,9 +70,9 @@ class State_Emission_Table(db.Model):
     __tablename__ = 'State_Emission_Table'
 
     State = db.Column(db.String, primary_key=True)
-    Tons_Greenhouse_Gas = db.Column(db.Integer)
-    Methane_Emission = db.Column(db.Integer)
-    CO2_Emission = db.Column(db.Integer)
+    Tons_of_Greenhouse_Gas_Emissions = db.Column(db.Integer)
+    Methane_Emissions = db.Column(db.Integer)
+    CO2_Emissions = db.Column(db.Integer)
     State_Biomass_Generation = db.Column(db.Integer)
 
     def __repr__(self):
@@ -99,6 +100,8 @@ def setup():
     # Recreate database each time for demo
     # db.drop_all()
     db.create_all()
+
+
 
 # reflect an existing database into a new model
 # Base = automap_base()
@@ -211,8 +214,8 @@ def state_totals_map(commodity):
     trace = {
         "type": "feature",
         "properties": {
-            "name": [result[0] for result in results],
-            "total": [result[1] for result in results]
+            "name": state,
+            "total": total
         }
     }
 
@@ -240,29 +243,28 @@ def co2():
     return jsonify(trace)
 
 
-# @app.route("/state_emission")
-# def state_emission():
+@app.route("/state_emission")
+def state_emission():
 
-#     """Return all state emission data"""
+    """Return all state emission data"""
 
-#     results = db.session.query(State_Emission_Table.State, State_Emission_Table.Tons_Greenhouse_Gas, State_Emission_Table.Methane_Emission, State_Emission_Table.CO2_Emission, State_Emission_Table.State_Biomass_Generation).all()
+    results = db.session.query(State_Emission_Table.State, State_Emission_Table.Tons_of_Greenhouse_Gas_Emissions, State_Emission_Table.Methane_Emissions, State_Emission_Table.CO2_Emissions, State_Emission_Table.State_Biomass_Generation).all()
 
-#     state = [result[0] for result in results]
-#     Tons_Greenhouse_Gas = [result[1] for result in results]
-#     Methane_Emission = [result[2] for result in results]
-#     CO2_Emission = [result[3] for result in results]
-#     State_Biomass_Generation = [result[4] for result in results]
+    state = [result[0] for result in results]
+    Tons_of_Greenhouse_Gas_Emissions = [result[1] for result in results]
+    Methane_Emissions = [result[2] for result in results]
+    CO2_Emissions = [result[3] for result in results]
+    State_Biomass_Generation = [result[4] for result in results]
 
+    trace = {
+        "state": state,
+        "Tons_of_Greenhouse_Gas_Emissions": Tons_of_Greenhouse_Gas_Emissions,
+        "Methane_Emissions": Methane_Emissions,
+        "CO2_Emissions": CO2_Emissions,
+        "State_Biomass_Generation": State_Biomass_Generation
+        }
 
-#     trace = {
-#         "state": state,
-#         "Tons_Greenhouse_Gas": Tons_Greenhouse_Gas,
-#         "Methane_Emission": Methane_Emission,
-#         "CO2_Emission": CO2_Emission,
-#         "State_Biomass_Generation": State_Biomass_Generation
-#         }
-
-#     return jsonify(trace)
+    return jsonify(trace)
 
 @app.route("/vehicle")
 def vehicle():
@@ -289,6 +291,13 @@ def vehicle():
 
     return jsonify(trace)
 
+@app.route("/usStates")
+def usStates():
+    SITE_ROOT = os.path.realpath(os.path.dirname(__file__))
+    json_url = os.path.join(SITE_ROOT, "static/data", "usStates.json")
+    data = json.load(open(json_url))
+    return jsonify(data)
+    # return render_template('showjson.jade', data=data)
 
 if __name__ == "__main__":
     app.run()
