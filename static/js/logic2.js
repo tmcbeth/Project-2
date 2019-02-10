@@ -100,7 +100,7 @@ d3.json(stateNumbers).then(function (co2) {
     geojson = L.geoJson(stateData, {
       style: style,
       onEachFeature: onEachFeature
-    }).addTo(myMap);
+    }).addTo(myMap).bringToBack();
     
     var info = L.control();
 
@@ -149,56 +149,65 @@ d3.json(stateNumbers).then(function (co2) {
 // Adding livestock markers
 function buildCommodityMap(commodity) {
 
-  function markerSize(commodity) {
-    return commodity / 100000;
+  function markerSize(inventory) {
+    return inventory / 10;
   }
-
+  
   var commoditymapUrl = `/by_state/${commodity}`;
   
   // @TODO: Build a Bubble Chart using the sample data
   d3.json(commoditymapUrl).then(function (response) {
 
-    console.log("pulled data for map:", response.state);
+    var state = response.state;
+    var inventory = response.Inventory;
 
-    var stateLonLat = []
+    inventory.forEach(function(data) {
+      data = data * 1;
+    });
 
-    console.log("First state:", response.state[1]);
 
-    for (j = 0; j < response.length; j++) {
+    console.log(response);
+    console.log("State List:", state);
+    console.log("Inventory List:", inventory);
+    console.log("First Inventory:", inventory[1]);
+
+
+    var stateLonLat = []  
+
+    for (j = 0; j < 50; j++) {
       
-      console.log("second state:", response.state[2]);
-
-      var resultsURL = 'https://maps.googleapis.com/maps/api/geocode/json?address=' + response[j].state + '&key=AIzaSyBrR9OPKN3ug0EjtnwImWXSzZXPDwENjww';
-
-      console.log("third state:", response.state[3]);
-
+      var resultsURL = 'https://maps.googleapis.com/maps/api/geocode/json?address=' + response.state[j] + '&key=AIzaSyBrR9OPKN3ug0EjtnwImWXSzZXPDwENjww';
+     
       d3.json(resultsURL).then(function (data) {
 
-        console.log("Results:", data);
-  
+        // console.log("Results:", data);
         var location = data.results[0].geometry.location;
-  
-        console.log("Location:", location);
+        // console.log("Location:", location);
 
         if (location) {
           stateLonLat.push([location.lat, location.lng]);
         }
       });
     };
-    console.log("StateLonLat:", stateLonLat)
 
-    for (var i = 0; i < response.length; i++) {
-      L.circle(location[i], {
-        fillOpacity: 0.75,
-        color: "white",
-        fillColor: "blue",
-        // Setting our circle's radius equal to the output of our markerSize function
-        // This will make our marker's size proportionate to its population
-        radius: markerSize(response[i].inventory)
-      }).bindPopup("<h1>" + response[i].state + "</h1> <hr> <h3>Inventory: " + response[i].inventory + "</h3>").addTo(myMap);
+    console.log("StateLonLat:", stateLonLat);
+    console.log(inventory[1]);
+
+    function markerSize(inventory) {
+      return inventory / 10;
     }
+
+    // for (var i = 0; i < 49; i++) {
+    var circleLayer = L.circle(stateLonLat, {
+      fillOpacity: 1,
+      color: "white",
+      fillColor: "blue",
+      // Setting our circle's radius equal to the output of our markerSize function
+      // This will make our marker's size proportionate to its population
+      radius: 30000
+    }).addTo(myMap).bringToFront();
+    // }
   });
-    
 };
 
 
@@ -233,3 +242,4 @@ function optionChanged(newSample) {
 
 // Initialize the dashboard
 init();
+

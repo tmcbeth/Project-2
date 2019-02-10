@@ -19,7 +19,7 @@ app = Flask(__name__)
 # Database Setup
 #################################################
 
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///db/combined_database.sqlite"
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///db/combined_database_final.sqlite"
 db = SQLAlchemy(app)
 
 
@@ -56,10 +56,14 @@ class Livestock_Table(db.Model):
 class CO2_Table(db.Model):
     __tablename__ = 'CO2_Table'
 
-    index = db.Column(db.Integer, primary_key=True)
-    State = db.Column(db.String)
+    State = db.Column(db.String, primary_key=True)
+    Ann_Heat_Input_1996 = db.Column(db.Integer)
+    Ann_Heat_Input_2016 = db.Column(db.Integer)
+    Ann_CO2_Rate_1996 = db.Column(db.Integer)
+    Ann_CO2_Rate_2016 = db.Column(db.Integer)
     CO2_Emissions_1996 = db.Column(db.Integer)
     CO2_Emissions_2016 = db.Column(db.Integer)
+    CO2_Difference = db.Column(db.Integer)
 
     def __repr__(self):
         return '<CO2 %r>' % (self.name)
@@ -101,26 +105,6 @@ def setup():
     # db.drop_all()
     db.create_all()
 
-
-
-# reflect an existing database into a new model
-# Base = automap_base()
-
-
-# reflect the tables
-# Base.prepare(db.engine, reflect=True)
-
-# Save references to each table
-# Commodity_Metadata = Base.classes.commodity_metadata
-# State = Base.classes.State
-
-
-#Trying to populate tables in sqlite
-# rds_connection_string = "sqlite:///db/livestock.sqlite"
-# engine = create_engine(f'mysql://{rds_connection_string}')
-
-# df = pd.read_csv("db/Livestock_US.csv")
-# df.to_sql("livestock_by_state", con=engine, if_exists='append', index=False)
 
 @app.route("/")
 def index():

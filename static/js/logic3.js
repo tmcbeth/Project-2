@@ -28,23 +28,15 @@ d3.json(stateNumbers).then(function (stateEmission) {
     L.geoJson(stateData).addTo(myMapB);
 
     function getColor(d) {
-      return d > 150000000 ? '#005a32' :
-        d > 100000000 ? '#238b45' :
-          d > 50000000 ? '#41ab5d' :
-            d > 25000000 ? '#74c476' :
-              d > 10000000 ? '#a1d99b' :
-                d > 5000000 ? '#c7e9c0' :
-                  d > 1000000 ? '#e5f5e0' :
+      return d > 20000000 ? '#005a32' :
+        d > 15000000 ? '#238b45' :
+          d > 10000000 ? '#41ab5d' :
+            d > 5000000 ? '#74c476' :
+              d > 2500000 ? '#a1d99b' :
+                d > 1000000 ? '#c7e9c0' :
+                  d > 500000 ? '#e5f5e0' :
                     '#f7fcf5';
     }
-    // #800026' :
-    //        d > 500  ? '#BD0026' :
-    //        d > 200  ? '#E31A1C' :
-    //        d > 100  ? '#FC4E2A' :
-    //        d > 50   ? '#FD8D3C' :
-    //        d > 20   ? '#FEB24C' :
-    //        d > 10   ? '#FED976' :
-    //                   '#FFEDA0
     
     function style(feature) {
       return {
@@ -113,7 +105,7 @@ d3.json(stateNumbers).then(function (stateEmission) {
 
     // method that we will use to update the control based on feature properties passed
     info.update = function (props) {
-      this._div.innerHTML = '<h4>CO2 Emissions</h4>' + (props ?
+      this._div.innerHTML = '<h4>Meth Emissions</h4>' + (props ?
         '<b>' + props.name + '</b><br />' + props.density + ' Tons'
         : 'Hover over a state');
     };
@@ -127,7 +119,7 @@ d3.json(stateNumbers).then(function (stateEmission) {
     legend.onAdd = function (map) {
   
     var div = L.DomUtil.create('div', 'info legend'),
-        grades = [0, 1, 5, 10, 25, 50, 100, 150],
+        grades = [0, .5, 1, 25, 5, 10, 15, 20],
         labels = [];
 
     // loop through our density intervals and generate a label with a colored square for each interval
@@ -138,7 +130,7 @@ d3.json(stateNumbers).then(function (stateEmission) {
     }
 
     return div;
-    };
+    };s
     
     legend.addTo(myMapB);
     
