@@ -7,15 +7,9 @@ function buildCharts(commodity) {
 
   // @TODO: Build a Bubble Chart using the sample data
   d3.json(chartUrl).then(function (response) {
-
-    console.log("pulled data for bar chart:", response);
-    
     
     var inventory = response.Inventory;
     var state = response.state;
-
-    console.log("inventory:", inventory)
-    console.log("state:", state)
 
     var stateBar = [{
       x: state,

@@ -1,4 +1,4 @@
-var myMap = L.map('map').setView([37.8, -96], 3);
+var myMapB = L.map('mapB').setView([37.8, -96], 3);
 
 L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
   maxZoom: 18,
@@ -7,13 +7,13 @@ L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={
     'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
   id: 'mapbox.light',
   accessToken: API_KEY
-}).addTo(myMap)
+}).addTo(myMapB)
 
-var stateNumbers = "/co2"
-d3.json(stateNumbers).then(function (co2) {
+var stateNumbers = "/state_emission"
+d3.json(stateNumbers).then(function (stateEmission) {
   
  
-  var co2_2016 = co2.CO2_2016;
+  var stateEmission = state_emission.Methane_Emission;
 
   var stateLines = "/usStates"
 
@@ -25,17 +25,17 @@ d3.json(stateNumbers).then(function (co2) {
       stateData.features[i].properties.density = co2_2016[i];
     }
     
-    L.geoJson(stateData).addTo(myMap);
+    L.geoJson(stateData).addTo(myMapB);
 
     function getColor(d) {
-      return d > 150000000 ? '#99000d' :
-        d > 100000000 ? '#cb181d' :
-          d > 50000000 ? '#ef3b2c' :
-            d > 25000000 ? '#fb6a4a' :
-              d > 10000000 ? '#fc9272' :
-                d > 5000000 ? '#fcbba1' :
-                  d > 1000000 ? '#fee0d2' :
-                    '#fff5f0';
+      return d > 150000000 ? '#005a32' :
+        d > 100000000 ? '#238b45' :
+          d > 50000000 ? '#41ab5d' :
+            d > 25000000 ? '#74c476' :
+              d > 10000000 ? '#a1d99b' :
+                d > 5000000 ? '#c7e9c0' :
+                  d > 1000000 ? '#e5f5e0' :
+                    '#f7fcf5';
     }
     // #800026' :
     //        d > 500  ? '#BD0026' :
@@ -57,7 +57,7 @@ d3.json(stateNumbers).then(function (co2) {
       };
     }
   
-    L.geoJson(stateData, { style: style }).addTo(myMap);
+    L.geoJson(stateData, { style: style }).addTo(myMapB);
     
     function highlightFeature(e) {
       var layer = e.target;
@@ -100,11 +100,11 @@ d3.json(stateNumbers).then(function (co2) {
     geojson = L.geoJson(stateData, {
       style: style,
       onEachFeature: onEachFeature
-    }).addTo(myMap);
+    }).addTo(myMapB);
     
     var info = L.control();
 
-    info.onAdd = function (myMap) {
+    info.onAdd = function (myMapB) {
       this._div = L.DomUtil.create('div', 'info'); // create a div with a class "info"
       this.update();
       return this._div;
@@ -118,7 +118,7 @@ d3.json(stateNumbers).then(function (co2) {
         : 'Hover over a state');
     };
 
-    info.addTo(myMap);
+    info.addTo(myMapB);
 
     // Add legend
 
@@ -140,7 +140,7 @@ d3.json(stateNumbers).then(function (co2) {
     return div;
     };
     
-    legend.addTo(myMap);
+    legend.addTo(myMapB);
     
   });
 });
@@ -195,41 +195,8 @@ function buildCommodityMap(commodity) {
         // Setting our circle's radius equal to the output of our markerSize function
         // This will make our marker's size proportionate to its population
         radius: markerSize(response[i].inventory)
-      }).bindPopup("<h1>" + response[i].state + "</h1> <hr> <h3>Inventory: " + response[i].inventory + "</h3>").addTo(myMap);
+      }).bindPopup("<h1>" + response[i].state + "</h1> <hr> <h3>Inventory: " + response[i].inventory + "</h3>").addTo(myMapB);
     }
   });
     
 };
-
-
-
-function init() {
-  // Grab a reference to the dropdown select element
-  var selector = d3.select("#selDataset");
-
-  // Use the list of sample names to populate the select options
-  d3.json("/names").then((commodityName) => {
-    commodityName.forEach((commodity) => {
-      selector
-        .append("option")
-        .text(commodity)
-        .property("value", commodity);
-    });
-
-    // Use the first sample from the list to build the initial plots
-    const firstSample = commodityName[0];
-    buildCommodityMap(firstSample);
-    // buildMetadata(firstSample);
-  });
-}
-
-function optionChanged(newSample) {
-  // Fetch new data each time a new sample is selected
-  buildCommodityMap(newSample);
-  // buildMetadata(newSample);
-}
-
-
-
-// Initialize the dashboard
-init();
