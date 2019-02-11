@@ -19,7 +19,7 @@ app = Flask(__name__)
 # Database Setup
 #################################################
 
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///db/combined_database_final.sqlite"
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///db/combined_database.sqlite"
 db = SQLAlchemy(app)
 
 
@@ -73,11 +73,13 @@ class CO2_Table(db.Model):
 class State_Emission_Table(db.Model):
     __tablename__ = 'State_Emission_Table'
 
-    State = db.Column(db.String, primary_key=True)
+    index = db.Column(db.Integer, primary_key=True)
+    State = db.Column(db.String)
     Tons_of_Greenhouse_Gas_Emissions = db.Column(db.Integer)
     Methane_Emissions = db.Column(db.Integer)
     CO2_Emissions = db.Column(db.Integer)
-    State_Biomass_Generation = db.Column(db.Integer)
+    State_Biomas_Generation = db.Column(db.Integer)
+    State_Transportation_Generation = db.Column(db.Integer)
 
     def __repr__(self):
         return '<State_Emission_Table %r>' % (self.name)
@@ -232,7 +234,7 @@ def state_emission():
 
     """Return all state emission data"""
 
-    results = db.session.query(State_Emission_Table.State, State_Emission_Table.Tons_of_Greenhouse_Gas_Emissions, State_Emission_Table.Methane_Emissions, State_Emission_Table.CO2_Emissions, State_Emission_Table.State_Biomass_Generation).all()
+    results = db.session.query(State_Emission_Table.State, State_Emission_Table.Tons_of_Greenhouse_Gas_Emissions, State_Emission_Table.Methane_Emissions, State_Emission_Table.CO2_Emissions, State_Emission_Table.State_Biomas_Generation).all()
 
     state = [result[0] for result in results]
     Tons_of_Greenhouse_Gas_Emissions = [result[1] for result in results]

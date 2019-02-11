@@ -10,10 +10,14 @@ L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={
 }).addTo(myMapB)
 
 var stateNumbers = "/state_emission"
-d3.json(stateNumbers).then(function (stateEmission) {
+d3.json(stateNumbers).then(function (state_emission) {
   
  
-  var stateEmission = state_emission.Methane_Emission;
+  var Methane_Emissions = state_emission.Methane_Emissions;
+
+  Methane_Emissions.forEach(function (data) {
+    data= +data
+  });
 
   var stateLines = "/usStates"
 
@@ -22,25 +26,30 @@ d3.json(stateNumbers).then(function (stateEmission) {
     var test = [];
     
     for (var i = 0; i < stateData.features.length; i++) {
-      stateData.features[i].properties.density = co2_2016[i];
+      stateData.features[i].properties.density = Methane_Emissions[i];
     }
+
+    console.log("logic3, density:", stateData);
     
+    
+
+
     L.geoJson(stateData).addTo(myMapB);
 
-    function getColor(d) {
-      return d > 20000000 ? '#005a32' :
+    function getColors(d) {
+      return d > 20000000 ? '#005824' :
         d > 15000000 ? '#238b45' :
-          d > 10000000 ? '#41ab5d' :
-            d > 5000000 ? '#74c476' :
-              d > 2500000 ? '#a1d99b' :
-                d > 1000000 ? '#c7e9c0' :
+          d > 10000000 ? '#41ae76' :
+            d > 5000000 ? '#66c2a4' :
+              d > 2500000 ? '#99d8c9' :
+                d > 1000000 ? '#ccece6' :
                   d > 500000 ? '#e5f5e0' :
                     '#f7fcf5';
     }
     
-    function style(feature) {
+    function style(features) {
       return {
-        fillColor: getColor(feature.properties.density),
+        fillColor: getColors(features.properties.density),
         weight: 2,
         opacity: 1,
         color: 'white',
@@ -119,18 +128,18 @@ d3.json(stateNumbers).then(function (stateEmission) {
     legend.onAdd = function (map) {
   
     var div = L.DomUtil.create('div', 'info legend'),
-        grades = [0, .5, 1, 25, 5, 10, 15, 20],
+        grades = [0, .5, 1, 2.5, 5, 10, 15, 20],
         labels = [];
 
     // loop through our density intervals and generate a label with a colored square for each interval
     for (var i = 0; i < grades.length; i++) {
         div.innerHTML +=
-            '<i style="background:' + getColor((grades[i]*1000000) + 1) + '"></i> ' +
+            '<i style="background:' + getColors((grades[i]*1000000) + 1) + '"></i> ' +
             grades[i] + (grades[i + 1] ? '&ndash;' + grades[i + 1] + 'M<br>' : 'M+');
     }
 
     return div;
-    };s
+    };
     
     legend.addTo(myMapB);
     
@@ -138,57 +147,57 @@ d3.json(stateNumbers).then(function (stateEmission) {
 });
 
 
-// Adding livestock markers
-function buildCommodityMap(commodity) {
+// // Adding livestock markers
+// function buildCommodityMap(commodity) {
 
-  function markerSize(commodity) {
-    return commodity / 100000;
-  }
+//   function markerSize(commodity) {
+//     return commodity / 100000;
+//   }
 
-  var commoditymapUrl = `/by_state/${commodity}`;
+//   var commoditymapUrl = `/by_state/${commodity}`;
   
-  // @TODO: Build a Bubble Chart using the sample data
-  d3.json(commoditymapUrl).then(function (response) {
+//   // @TODO: Build a Bubble Chart using the sample data
+//   d3.json(commoditymapUrl).then(function (response) {
 
-    console.log("pulled data for map:", response.state);
+//     console.log("pulled data for map:", response.state);
 
-    var stateLonLat = []
+//     var stateLonLat = []
 
-    console.log("First state:", response.state[1]);
+//     console.log("First state:", response.state[1]);
 
-    for (j = 0; j < response.length; j++) {
+//     for (j = 0; j < response.length; j++) {
       
-      console.log("second state:", response.state[2]);
+//       console.log("second state:", response.state[2]);
 
-      var resultsURL = 'https://maps.googleapis.com/maps/api/geocode/json?address=' + response[j].state + '&key=AIzaSyBrR9OPKN3ug0EjtnwImWXSzZXPDwENjww';
+//       var resultsURL = 'https://maps.googleapis.com/maps/api/geocode/json?address=' + response[j].state + '&key=AIzaSyBrR9OPKN3ug0EjtnwImWXSzZXPDwENjww';
 
-      console.log("third state:", response.state[3]);
+//       console.log("third state:", response.state[3]);
 
-      d3.json(resultsURL).then(function (data) {
+//       d3.json(resultsURL).then(function (data) {
 
-        console.log("Results:", data);
+//         console.log("Results:", data);
   
-        var location = data.results[0].geometry.location;
+//         var location = data.results[0].geometry.location;
   
-        console.log("Location:", location);
+//         console.log("Location:", location);
 
-        if (location) {
-          stateLonLat.push([location.lat, location.lng]);
-        }
-      });
-    };
-    console.log("StateLonLat:", stateLonLat)
+//         if (location) {
+//           stateLonLat.push([location.lat, location.lng]);
+//         }
+//       });
+//     };
+//     console.log("StateLonLat:", stateLonLat)
 
-    for (var i = 0; i < response.length; i++) {
-      L.circle(location[i], {
-        fillOpacity: 0.75,
-        color: "white",
-        fillColor: "blue",
-        // Setting our circle's radius equal to the output of our markerSize function
-        // This will make our marker's size proportionate to its population
-        radius: markerSize(response[i].inventory)
-      }).bindPopup("<h1>" + response[i].state + "</h1> <hr> <h3>Inventory: " + response[i].inventory + "</h3>").addTo(myMapB);
-    }
-  });
+//     for (var i = 0; i < response.length; i++) {
+//       L.circle(location[i], {
+//         fillOpacity: 0.75,
+//         color: "white",
+//         fillColor: "blue",
+//         // Setting our circle's radius equal to the output of our markerSize function
+//         // This will make our marker's size proportionate to its population
+//         radius: markerSize(response[i].inventory)
+//       }).bindPopup("<h1>" + response[i].state + "</h1> <hr> <h3>Inventory: " + response[i].inventory + "</h3>").addTo(myMapB);
+//     }
+//   });
     
-};
+// };

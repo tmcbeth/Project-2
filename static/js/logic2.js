@@ -37,14 +37,7 @@ d3.json(stateNumbers).then(function (co2) {
                   d > 1000000 ? '#fee0d2' :
                     '#fff5f0';
     }
-    // #800026' :
-    //        d > 500  ? '#BD0026' :
-    //        d > 200  ? '#E31A1C' :
-    //        d > 100  ? '#FC4E2A' :
-    //        d > 50   ? '#FD8D3C' :
-    //        d > 20   ? '#FEB24C' :
-    //        d > 10   ? '#FED976' :
-    //                   '#FFEDA0
+   
     
     function style(feature) {
       return {
@@ -100,7 +93,7 @@ d3.json(stateNumbers).then(function (co2) {
     geojson = L.geoJson(stateData, {
       style: style,
       onEachFeature: onEachFeature
-    }).addTo(myMap).bringToBack();
+    }).addTo(myMap);
     
     var info = L.control();
 
@@ -146,6 +139,7 @@ d3.json(stateNumbers).then(function (co2) {
 });
 
 
+
 // Adding livestock markers
 function buildCommodityMap(commodity) {
 
@@ -162,7 +156,7 @@ function buildCommodityMap(commodity) {
     var inventory = response.Inventory;
 
     inventory.forEach(function(data) {
-      data = data * 1;
+      data = +data;
     });
 
 
@@ -191,23 +185,20 @@ function buildCommodityMap(commodity) {
     };
 
     console.log("StateLonLat:", stateLonLat);
-    console.log(inventory[1]);
+    console.log(response.Inventory[1]);
 
-    function markerSize(inventory) {
-      return inventory / 10;
-    }
-
-    // for (var i = 0; i < 49; i++) {
-    var circleLayer = L.circle(stateLonLat, {
-      fillOpacity: 1,
-      color: "white",
-      fillColor: "blue",
-      // Setting our circle's radius equal to the output of our markerSize function
-      // This will make our marker's size proportionate to its population
-      radius: 30000
-    }).addTo(myMap).bringToFront();
+    // for (var i = 0; i < 50; i++) {
+      L.circle([35.20105, -91.8318334], {
+        fillOpacity: 1,
+        color: "white",
+        fillColor: "blue",
+        // Setting our circle's radius equal to the output of our markerSize function
+        // This will make our marker's size proportionate to its population
+        radius: 300000
+      }).addTo(myMap);
     // }
   });
+    
 };
 
 
@@ -242,4 +233,3 @@ function optionChanged(newSample) {
 
 // Initialize the dashboard
 init();
-
