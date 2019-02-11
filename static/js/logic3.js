@@ -14,11 +14,16 @@ d3.json(stateNumbers).then(function (state_emission) {
   
  
   var Methane_Emissions = state_emission.Methane_Emissions;
+  
+  Methane_Emissions_Parsed = []
 
-  Methane_Emissions.forEach(function (data) {
-    data= +data
-  });
-
+    Methane_Emissions.forEach(function (data) {
+      data = data.replace(/,/g, "")
+      parseInt(data, 10)
+      data = +data
+      Methane_Emissions_Parsed.push(data)
+    });
+  
   var stateLines = "/usStates"
 
   d3.json(stateLines).then(function (data) {
@@ -26,17 +31,13 @@ d3.json(stateNumbers).then(function (state_emission) {
     var test = [];
     
     for (var i = 0; i < stateData.features.length; i++) {
-      stateData.features[i].properties.density = Methane_Emissions[i];
+      stateData.features[i].properties.density = Methane_Emissions_Parsed[i];
     }
-
-    console.log("logic3, density:", stateData);
-    
-    
 
 
     L.geoJson(stateData).addTo(myMapB);
 
-    function getColors(d) {
+    function getColor(d) {
       return d > 20000000 ? '#005824' :
         d > 15000000 ? '#238b45' :
           d > 10000000 ? '#41ae76' :
@@ -47,9 +48,9 @@ d3.json(stateNumbers).then(function (state_emission) {
                     '#f7fcf5';
     }
     
-    function style(features) {
+    function style(feature) {
       return {
-        fillColor: getColors(features.properties.density),
+        fillColor: getColor(feature.properties.density),
         weight: 2,
         opacity: 1,
         color: 'white',
@@ -114,7 +115,7 @@ d3.json(stateNumbers).then(function (state_emission) {
 
     // method that we will use to update the control based on feature properties passed
     info.update = function (props) {
-      this._div.innerHTML = '<h4>Meth Emissions</h4>' + (props ?
+      this._div.innerHTML = '<h4>Methane Emissions</h4>' + (props ?
         '<b>' + props.name + '</b><br />' + props.density + ' Tons'
         : 'Hover over a state');
     };
@@ -134,7 +135,7 @@ d3.json(stateNumbers).then(function (state_emission) {
     // loop through our density intervals and generate a label with a colored square for each interval
     for (var i = 0; i < grades.length; i++) {
         div.innerHTML +=
-            '<i style="background:' + getColors((grades[i]*1000000) + 1) + '"></i> ' +
+            '<i style="background:' + getColor((grades[i]*1000000) + 1) + '"></i> ' +
             grades[i] + (grades[i + 1] ? '&ndash;' + grades[i + 1] + 'M<br>' : 'M+');
     }
 

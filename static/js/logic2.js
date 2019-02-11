@@ -159,12 +159,18 @@ function buildCommodityMap(commodity) {
       data = +data;
     });
 
-
     console.log(response);
-    console.log("State List:", state);
-    console.log("Inventory List:", inventory);
-    console.log("First Inventory:", inventory[1]);
 
+    inventory_Parsed = []
+  
+      inventory.forEach(function (data) {
+        data = data.replace(/,/g, "")
+        parseInt(data, 10)
+        data = +data
+        inventory_Parsed.push(data)
+      });
+    
+    console.log("data parsed", inventory_Parsed);
 
     var stateLonLat = []  
 
@@ -185,16 +191,16 @@ function buildCommodityMap(commodity) {
     };
 
     console.log("StateLonLat:", stateLonLat);
-    console.log(response.Inventory[1]);
+
 
     // for (var i = 0; i < 50; i++) {
-      L.circle([35.20105, -91.8318334], {
+      L.circle([stateLonLat], {
         fillOpacity: 1,
         color: "white",
         fillColor: "blue",
         // Setting our circle's radius equal to the output of our markerSize function
         // This will make our marker's size proportionate to its population
-        radius: 300000
+        radius: inventory_Parsed/10
       }).addTo(myMap);
     // }
   });

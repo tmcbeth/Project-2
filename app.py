@@ -228,6 +228,35 @@ def co2():
 
     return jsonify(trace)
 
+@app.route("/co2_comparison")
+def co2_comparison():
+
+    """Return all CO2 data"""
+
+    results = db.session.query(CO2_Table.State, CO2_Table.Ann_Heat_Input_1996, CO2_Table.Ann_Heat_Input_2016, CO2_Table.Ann_CO2_Rate_1996, CO2_Table.Ann_CO2_Rate_2016, CO2_Table.CO2_Emissions_1996, CO2_Table.CO2_Emissions_2016, CO2_Table.CO2_Difference).all()
+
+    State = [result[0] for result in results]
+    Ann_Heat_Input_1996= [result[1] for result in results]
+    Ann_Heat_Input_2016= [result[2] for result in results]
+    Ann_CO2_Rate_1996= [result[3] for result in results]
+    Ann_CO2_Rate_2016= [result[4] for result in results]
+    CO2_Emissions_1996 = [result[5] for result in results]
+    CO2_Emissions_2016 = [result[6] for result in results]
+    CO2_Difference= [result[7] for result in results]
+
+    trace = {
+        "State": State,
+        "Ann_Heat_Input_1996": Ann_Heat_Input_1996,
+        "Ann_Heat_Input_2016": Ann_Heat_Input_2016,
+        "Ann_CO2_Rate_1996": Ann_CO2_Rate_1996,
+        "Ann_CO2_Rate_2016": Ann_CO2_Rate_2016,
+        "CO2_Emissions_1996": CO2_Emissions_1996,
+        "CO2_Emissions_2016": CO2_Emissions_2016,
+        "CO2_Difference": CO2_Difference
+        
+        }
+
+    return jsonify(trace)
 
 @app.route("/state_emission")
 def state_emission():
