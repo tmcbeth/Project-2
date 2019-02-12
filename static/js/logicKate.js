@@ -24,16 +24,12 @@
 //     makePlotly1(CO2_Difference, State);
 //     makePlotly2(Ann_Heat_Input_1996, Ann_Heat_Input_2016, Ann_CO2_Rate_1996, Ann_CO2_Rate_2016, CO2_Emissions_1996, CO2_Emissions_2016);
 // };
-console.log("run kate js");
 function makePlotly1() {
     
     var chartUrl = `/co2_comparison`;
     d3.json(chartUrl).then(function (response) {
         var State = response.State;
         var CO2_Difference = response.CO2_Difference;
-
-        console.log("Kate1", State);
-        console.log("Kate1", CO2_Difference);
 
         // var plotDiv = document.getElementById("Kate1");
         var traces = [{

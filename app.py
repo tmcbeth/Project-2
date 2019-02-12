@@ -281,6 +281,31 @@ def state_emission():
 
     return jsonify(trace)
 
+@app.route("/state_emission2")
+def state_emission2():
+
+    """Return all state emission data"""
+
+    results = db.session.query(State_Emission_Table.State, State_Emission_Table.Tons_of_Greenhouse_Gas_Emissions, State_Emission_Table.Methane_Emissions, State_Emission_Table.CO2_Emissions, State_Emission_Table.State_Biomas_Generation, State_Emission_Table.State_Transportation_Generation).all()
+
+    state = [result[0] for result in results]
+    Tons_of_Greenhouse_Gas_Emissions = [result[1] for result in results]
+    methane_emission = [result[2] for result in results]
+    CO2_emissions = [result[3] for result in results]
+    biomass_generation = [result[4] for result in results]
+    transportation_generation = [result[5] for result in results]
+
+    trace = {
+        "state": state,
+        "Tons_of_Greenhouse_Gas_Emissions": Tons_of_Greenhouse_Gas_Emissions,
+        "methane_emission": methane_emission,
+        "CO2_emissions": CO2_emissions,
+        "biomass_generation": biomass_generation,
+        "transportation_generation": transportation_generation
+        }
+
+    return jsonify(trace)
+
 @app.route("/vehicle")
 def vehicle():
 
