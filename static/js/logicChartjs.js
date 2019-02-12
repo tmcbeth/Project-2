@@ -7,6 +7,10 @@ function makePlotly1() {
         var methane_emission = response.methane_emission;
         var CO2_emissions = response.CO2_emissions;
         var total_vehicles = response.total_vehicles;
+        var Automobiles = response.Automobiles;
+        var Buses = response.Buses;
+        var Trucks = response.Trucks;
+        var Motorcycles = response.Motorcycles;
        
         var bubble_chart = document.getElementById("bubble-chart");
 
@@ -55,6 +59,46 @@ function makePlotly1() {
             })
         })
 
+        var chartDataAuto = [];
+
+        methane_emissions_parsed.forEach(function (e, i) {
+            chartDataAuto.push({
+                x: e,
+                y: CO2_emissions_parsed[i],
+                r: Automobiles[i]/1000000,
+            })
+        })
+
+        var chartDataBus = [];
+
+        methane_emissions_parsed.forEach(function (e, i) {
+            chartDataBus.push({
+                x: e,
+                y: CO2_emissions_parsed[i],
+                r: Buses[i]/1000000,
+            })
+        })
+
+        var chartDataTruck = [];
+
+        methane_emissions_parsed.forEach(function (e, i) {
+            chartDataTruck.push({
+                x: e,
+                y: CO2_emissions_parsed[i],
+                r: Trucks[i]/1000000,
+            })
+        })
+
+        var chartDataMoto = [];
+
+        methane_emissions_parsed.forEach(function (e, i) {
+            chartDataMoto.push({
+                x: e,
+                y: CO2_emissions_parsed[i],
+                r: Motorcycles[i]/1000000,
+            })
+        })
+
         console.log("Chart Data", chartData)
         
         var popCanvas = document.getElementById("bubble-chart");
@@ -62,40 +106,7 @@ function makePlotly1() {
         Chart.defaults.global.defaultFontFamily = "Arial";
         Chart.defaults.global.defaultFontSize = 14;
 
-        // var popData = {
-        //     datasets: [{
-        //         label: ['Circle Size: Total Number of Vehicles'],
-        //         data: [{
-        //             x: 100,
-        //             y: 0,
-        //             r: 10
-        //         }, {
-        //             x: 60,
-        //             y: 30,
-        //             r: 20
-        //         }, {
-        //             x: 40,
-        //             y: 60,
-        //             r: 25
-        //         }, {
-        //             x: 80,
-        //             y: 80,
-        //             r: 50
-        //         }, {
-        //             x: 20,
-        //             y: 30,
-        //             r: 25
-        //         }, {
-        //             x: 0,
-        //             y: 100,
-        //             r: 5
-        //         }],
-        //         backgroundColor: "#FF9966",
-      
-        
-        //     }]
-        // };
-
+    
         var bubbleChart = new Chart(popCanvas, {
             type: 'bubble',
             data: {
@@ -103,12 +114,28 @@ function makePlotly1() {
                     label: ['Circle Size: Total Number of Vehicles'],
                     data: chartData,
                     backgroundColor: "#FF9966",
+                }, {
+                    label: ['Circle Size: Total Number of Automobiles'],
+                    data: chartDataAuto,
+                    backgroundColor: "#2ca25f",
+                }, {
+                    label: ['Circle Size: Total Number of Buses'],
+                    data: chartDataBus,
+                    backgroundColor: "#1f77b4",
+                }, {
+                    label: ['Circle Size: Total Number of Trucks'],
+                    data: chartDataTruck,
+                    backgroundColor: "#d62728",
+                }, {
+                    label: ['Circle Size: Total Number of Motorcycles'],
+                    data: chartDataMoto,
+                    backgroundColor: "#36a2eb",
                 }],
             },
             options: {
                 title: {
                     display: true,
-                    text: 'Total Vehicles by State vs Gas Emissions'
+                    text: 'Total Vehicles vs Gas Emissions by State'
                 }, scales: {
                     yAxes: [{
                         scaleLabel: {
@@ -129,10 +156,7 @@ function makePlotly1() {
         });
     });
 }
-
-        
-        
-        
+     
         
 makePlotly1();
 

@@ -352,9 +352,13 @@ def vehicle_gases():
     CO2_emissions = [result[3] for result in results]
     
 
-    results1 = db.session.query(Vehicle_Table.Total_Vehicles).all()
+    results1 = db.session.query(Vehicle_Table.Total_Vehicles, Vehicle_Table.Automobiles, Vehicle_Table.Buses, Vehicle_Table.Trucks, Vehicle_Table.Motorcycles).all()
 
     total_vehicles = [result[0] for result in results1]
+    Automobiles = [result[1] for result in results1]
+    Buses = [result[2] for result in results1]
+    Trucks = [result[3] for result in results1]
+    Motorcycles = [result[4] for result in results1]
 
     trace = {
         "state": state,
@@ -362,6 +366,10 @@ def vehicle_gases():
         "methane_emission": methane_emission,
         "CO2_emissions": CO2_emissions,
         "total_vehicles": total_vehicles,
+        "Automobiles": Automobiles,
+        "Buses": Buses,
+        "Trucks": Trucks,
+        "Motorcycles": Motorcycles,
         }
 
     return jsonify(trace)
