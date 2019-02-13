@@ -14,9 +14,6 @@ function makePlotly1() {
        
         var bubble_chart = document.getElementById("bubble-chart");
 
-        console.log("Methane Emissions:", methane_emission);
-        console.log("CO2_emissions:", CO2_emissions);
-        console.log("total_vehicles:", total_vehicles);
 
         methane_emissions_parsed = []
 
@@ -45,9 +42,7 @@ function makePlotly1() {
             total_vehicles_parsed.push(data)
         });
 
-        console.log("Meth parsed", methane_emissions_parsed);
-        console.log("CO2 Parsed", CO2_emissions_parsed);
-        console.log("total_vehicles_parsed", total_vehicles_parsed);
+        
 
         var chartData = [];
 
@@ -99,7 +94,7 @@ function makePlotly1() {
             })
         })
 
-        console.log("Chart Data", chartData)
+        
         
         var popCanvas = document.getElementById("bubble-chart");
 

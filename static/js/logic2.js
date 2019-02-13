@@ -140,101 +140,101 @@ d3.json(stateNumbers).then(function (co2) {
 
 
 
-// // Adding livestock markers
-// function buildCommodityMap(commodity) {
+// Adding livestock markers
+function buildCommodityMap(commodity) {
 
-//   function markerSize(inventory) {
-//     return inventory / 10;
-//   }
+  function markerSize(inventory) {
+    return inventory / 10;
+  }
   
-//   var commoditymapUrl = `/by_state/${commodity}`;
+  var commoditymapUrl = `/by_state/${commodity}`;
   
-//   // @TODO: Build a Bubble Chart using the sample data
-//   d3.json(commoditymapUrl).then(function (response) {
+  // @TODO: Build a Bubble Chart using the sample data
+  d3.json(commoditymapUrl).then(function (response) {
 
-//     var state = response.state;
-//     var inventory = response.Inventory;
+    var state = response.state;
+    var inventory = response.Inventory;
 
-//     inventory.forEach(function(data) {
-//       data = +data;
-//     });
+    inventory.forEach(function(data) {
+      data = +data;
+    });
 
-//     console.log(response);
+    console.log(response);
 
-//     inventory_Parsed = []
+    inventory_Parsed = []
   
-//       inventory.forEach(function (data) {
-//         data = data.replace(/,/g, "")
-//         parseInt(data, 10)
-//         data = +data
-//         inventory_Parsed.push(data)
-//       });
+      inventory.forEach(function (data) {
+        data = data.replace(/,/g, "")
+        parseInt(data, 10)
+        data = +data
+        inventory_Parsed.push(data)
+      });
     
-//     console.log("data parsed", inventory_Parsed);
+    console.log("data parsed", inventory_Parsed);
 
-//     var stateLonLat = []  
+    var stateLonLat = []  
 
-//     for (j = 0; j < 50; j++) {
+    for (j = 0; j < 50; j++) {
       
-//       var resultsURL = 'https://maps.googleapis.com/maps/api/geocode/json?address=' + response.state[j] + '&key=AIzaSyBrR9OPKN3ug0EjtnwImWXSzZXPDwENjww';
+      var resultsURL = 'https://maps.googleapis.com/maps/api/geocode/json?address=' + response.state[j] + '&key=AIzaSyBrR9OPKN3ug0EjtnwImWXSzZXPDwENjww';
      
-//       d3.json(resultsURL).then(function (data) {
+      d3.json(resultsURL).then(function (data) {
 
-//         // console.log("Results:", data);
-//         var location = data.results[0].geometry.location;
-//         // console.log("Location:", location);
+        // console.log("Results:", data);
+        var location = data.results[0].geometry.location;
+        // console.log("Location:", location);
 
-//         if (location) {
-//           stateLonLat.push([location.lat, location.lng]);
-//         }
-//       });
-//     };
+        if (location) {
+          stateLonLat.push([location.lat, location.lng]);
+        }
+      });
+    };
 
-//     console.log("StateLonLat:", stateLonLat);
+    console.log("StateLonLat:", stateLonLat);
 
 
-//       var concentration = L.circle([stateLonLat], {
-//         fillOpacity: 1,
-//         color: "white",
-//         fillColor: "blue",
-//         // Setting our circle's radius equal to the output of our markerSize function
-//         // This will make our marker's size proportionate to its population
-//         radius: 300
-//       })
-//    myMap.addLayer(concentration);
-//   });
+      var concentration = L.circle([stateLonLat], {
+        fillOpacity: 1,
+        color: "white",
+        fillColor: "blue",
+        // Setting our circle's radius equal to the output of our markerSize function
+        // This will make our marker's size proportionate to its population
+        radius: 300
+      })
+   myMap.addLayer(concentration);
+  });
     
-// };
+};
 
 
 
-// function init() {
-//   // Grab a reference to the dropdown select element
-//   var selector = d3.select("#selDataset");
+function init() {
+  // Grab a reference to the dropdown select element
+  var selector = d3.select("#selDataset");
 
-//   // Use the list of sample names to populate the select options
-//   d3.json("/names").then((commodityName) => {
-//     commodityName.forEach((commodity) => {
-//       selector
-//         .append("option")
-//         .text(commodity)
-//         .property("value", commodity);
-//     });
+  // Use the list of sample names to populate the select options
+  d3.json("/names").then((commodityName) => {
+    commodityName.forEach((commodity) => {
+      selector
+        .append("option")
+        .text(commodity)
+        .property("value", commodity);
+    });
 
-//     // Use the first sample from the list to build the initial plots
-//     const firstSample = commodityName[0];
-//     buildCommodityMap(firstSample);
-//     // buildMetadata(firstSample);
-//   });
-// }
+    // Use the first sample from the list to build the initial plots
+    const firstSample = commodityName[0];
+    buildCommodityMap(firstSample);
+    // buildMetadata(firstSample);
+  });
+}
 
-// function optionChanged(newSample) {
-//   // Fetch new data each time a new sample is selected
-//   buildCommodityMap(newSample);
-//   // buildMetadata(newSample);
-// }
+function optionChanged(newSample) {
+  // Fetch new data each time a new sample is selected
+  buildCommodityMap(newSample);
+  // buildMetadata(newSample);
+}
 
 
 
-// // Initialize the dashboard
-// init();
+// Initialize the dashboard
+init();
