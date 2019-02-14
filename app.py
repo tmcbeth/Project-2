@@ -12,6 +12,10 @@ from sqlalchemy import create_engine, Column, Integer, ForeignKey, Numeric, Date
 from flask import Flask, jsonify, render_template, request, redirect, url_for, json
 from flask_sqlalchemy import SQLAlchemy
 
+import pymysql
+import requests
+import pymongo
+
 app = Flask(__name__)
 
 
