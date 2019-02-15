@@ -24,6 +24,17 @@
   <link rel="stylesheet" type="text/css" href="https://unpkg.com/leaflet.markercluster@1.0.3/dist/MarkerCluster.css">
   <link rel="stylesheet" type="text/css" href="https://unpkg.com/leaflet.markercluster@1.0.3/dist/MarkerCluster.Default.css">
 
+<!-- chart.js stuff -->
+  <script src="Chart.bundle.js"></script>
+  <script src="utils.js"></script>
+  <style>
+    canvas {
+      -moz-user-select: none;
+      -webkit-user-select: none;
+      -ms-user-select: none;
+    }
+    </style>
+
   <!-- Our CSS -->
   <link rel="stylesheet" type="text/css" href="static/css/style.css">
 
@@ -105,6 +116,16 @@
     
     <!-- Leaflet heatmap plugin-->
     <script type="text/javascript" src="static/js/leaflet-heat.js"></script>
+
+    <!-- Chart.JS Section -->
+    <div style="width: 100%">
+      <center><h1>Vehicle Data By State</h1>
+      <canvas id="canvas"></canvas></center>
+    </div>
+       
+    <canvas id="vehicle_stacked_bar_chart" style="width: 100%; height: auto;"></canvas></div>
+    <script type="text/javascript" src="./data/Vehicle_Data.js"></script>
+    <script src="vehicle_stacked_bar.js"></script>
 
 </body>
 
